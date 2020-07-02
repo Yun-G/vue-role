@@ -1,0 +1,95 @@
+:root {
+	font-size: 10px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+*,
+:after,
+:before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+//滚动条
+*::-webkit-scrollbar {
+	background: #fff;
+	width: 5px;
+}
+*::-webkit-scrollbar-track {
+	background: #fff;
+	width: 5px;
+}
+*::-webkit-scrollbar-thumb {
+	background: #fff;
+	width: 5px;
+}
+*:hover::-webkit-scrollbar {
+	background: #eee;
+}
+*:hover::-webkit-scrollbar-track {
+	background: #eee;
+}
+*:hover::-webkit-scrollbar-thumb {
+	background: #ddd;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+#app {
+	height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 1.6rem;
+	font-weight: normal;
+}
+ul,
+ol,
+li {
+	list-style: none;
+}
+b,
+strong {
+	font-weight: normal;
+}
+em,
+i {
+	font-style: normal;
+}
+a,
+u,
+s {
+	text-decoration: none;
+}
+img {
+	border: 0;
+	display: block;
+}
+input {
+	outline: none;
+}
+[v-cloak] {
+	display: none;
+}
+
+//去除上下箭头 谷歌
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+//去除上下箭头 火狐
+input[type='number'] {
+	-moz-appearance: textfield;
+}
