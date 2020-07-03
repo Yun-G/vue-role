@@ -1,3 +1,5 @@
+import xDictionary from "./xDictionary";
+import axios from "axios";
 //localStorage的封装
 const xStorage = {
 	/**
@@ -71,10 +73,18 @@ const xStorage = {
 
 export default {
 	install: Vue => {
+		//加载数据字典
+		axios.get("https://mock.yonyoucloud.com/mock/10610/MGT/System/DataDictionary/GetDataDictionaryList.ashx").then(res => {
+			if (res.res == 0) {
+				Vue.prototype.$D = new xDictionary(res.data);
+			}
+		})
+		//挂载xStorage
 		Vue.prototype.$xStorage = xStorage
-		// Vue.prototype.$E = new Vue(); $emit提交 $on 处理
+		//$emit提交 $on 处理 事件总线
+		Vue.prototype.$E = new Vue(); 
 		//---------全局方法 ---------------//
-		Date.prototype.timeFormat = function(format) {
+		String.prototype.timeFormat = Date.prototype.timeFormat = function(format) {
 			let time = this;
 			let o = {
 				"M+": time.getMonth() + 1,

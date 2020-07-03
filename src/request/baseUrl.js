@@ -4,5 +4,6 @@
  */
 let base = {
 	sq: process.env.VUE_APP_BASE_URL1,
+	dic:process.env.VUE_APP_DIC
 }
-export default base;
+export default base;s
