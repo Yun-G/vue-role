@@ -18,15 +18,16 @@ VueRouter.prototype.replace = function replace(location) {
 };
 
 
-const router = new VueRouter({
+const createRouter = () => new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
-	routes:constantRouterMap
+	routes: constantRouterMap
 })
+const router = createRouter();
 //登陆后不能访问的页面
 const exclude = ['/login', '/register', '/resetPassword']
 //在免登录白名单
-const whiteList = ['/login','/register']
+const whiteList = ['/login', '/register', '/resetPassword']
 // 全局路由守卫，可在这里判断权限和状态  放行必须调用next方法
 router.beforeEach((to, from, next) => {
 	store.commit('website/cancelAll');
@@ -39,7 +40,7 @@ router.beforeEach((to, from, next) => {
 					roles
 				}).then(() => { // 生成可访问的路由表
 					router.addRoutes(store.state.permission.addRouters) // 动态添加可访问路由表
-					router.options.routes = [...store.state.permission.addRouters]//不加这句不会显示菜单
+					router.options.routes = [...store.state.permission.addRouters] //不加这句不会显示菜单
 					next({ ...to,
 						replace: true
 					}) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
@@ -70,5 +71,10 @@ router.beforeEach((to, from, next) => {
 		}
 	}
 })
+
+export function resetRouter() {
+	const newRouter = createRouter()
+	router.matcher = newRouter.matcher // the relevant part
+}
 
 export default router

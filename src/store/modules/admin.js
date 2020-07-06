@@ -53,13 +53,11 @@ const actions = {
     commit('CHANGE_SETTING', data)
   }
 }
-// getters 从 store 中的 state 中派生出一些状态
-const getters = {};
+
 
 export default {
 	namespaced: true,
 	state,
-	getters,
 	actions,
 	mutations
 };

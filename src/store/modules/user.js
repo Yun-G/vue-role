@@ -1,12 +1,11 @@
 import api from '@/request/api' // 导入http中创建的axios实例
+import {resetRouter} from '@/router'
 const state = {
 	userInfo: {}, //用户信息
 	token: null,
 	isLogin: false,
 	role: [], //用户权限信息
 };
-// getters 从 store 中的 state 中派生出一些状态
-const getters = {};
 // actions
 const actions = {
 	setUserDate({
@@ -23,7 +22,15 @@ const actions = {
 	logout({
 		commit
 	}) {
-		commit('logout');
+		return new Promise((resolve, reject) => {
+			api.user.logout().then(res => {
+				commit('logout');
+				resetRouter()
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		})
 	},
 	GetInfo({
 		commit
@@ -63,7 +70,6 @@ const mutations = {
 export default {
 	namespaced: true,
 	state,
-	getters,
 	actions,
 	mutations
 };

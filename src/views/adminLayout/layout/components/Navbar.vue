@@ -36,10 +36,11 @@ export default {
 	methods: {
 		...mapActions('admin',['toggleSideBar']),
 		...mapActions('user',['logout']),
-		//  logout() {
-		// 	await this.$store.dispatch('user/logout');
-		// 	this.$router.push(`/login?redirect=${this.$route.fullPath}`);
-		// }
+		async logout() {
+			await this.$store.dispatch('user/logout');
+			this.$router.replace("/login")
+			this.$xStorage.removeItem("token")
+		}
 	}
 };
 </script>
