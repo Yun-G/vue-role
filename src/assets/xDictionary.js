@@ -44,15 +44,12 @@ export default class xDictionary {
 	 * @return {Array} 返回获取到的字段数组
 	 */
 	LIST(param) {
-		const pnt = _.find(this.dic, function(aa) {
-			return aa.param == param;
-		});
-
-		if (pnt) {
-			return JSON.parse(JSON.stringify(pnt.items));
-		} else {
-			return [];
+		for (let item of this.dic) {
+			if (item.param === param) {
+				return JSON.parse(JSON.stringify(item.items))
+			}
 		}
+		return [];
 	}
 
 	/**
@@ -63,22 +60,19 @@ export default class xDictionary {
 	 * @return {Object} 返回获取到的字段对象
 	 */
 	ITEM(param, value) {
-		const sub = _.find(this.LIST(param), function(a) {
-			return a.value == value;
-		});
-
-		if (sub) {
-			return JSON.parse(JSON.stringify(sub));
-		} else {
-			return {
-				key: 0,
-				name: "未知",
-				value: 0,
-				icon: "hi-ellipsis",
-				color: "#ccc",
-				Custom: ""
-			};
+		for (let item of this.LIST(param)) {
+			if (item.value === value) {
+				return JSON.parse(JSON.stringify(item))
+			}
 		}
+		return {
+			key: 0,
+			name: "未知",
+			value: 0,
+			icon: "hi-ellipsis",
+			color: "#ccc",
+			Custom: ""
+		};
 	}
 
 	/**
@@ -101,14 +95,11 @@ export default class xDictionary {
 	 * @return {Int} 返回该字段的枚举值
 	 */
 	VALUE(param, key) {
-		const sub = _.find(this.LIST(param), function(a) {
-			return a.key == key;
-		});
-
-		if (sub) {
-			return JSON.parse(JSON.stringify(sub.value));
-		} else {
-			return null;
+		for (let item of this.LIST(param)) {
+			if (item.key === key) {
+				return JSON.parse(JSON.stringify(item.value));
+			}
 		}
+		return null;
 	}
 }

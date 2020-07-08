@@ -125,29 +125,25 @@ instance.interceptors.response.use(
 	// 请求成功
 	res => {
 		if (res.status === 200) {
-			Promise.resolve(res.data)
 			//根据后台接口返回定义错误的提示
-			if (res.data.code != 200) {
+			if (res.data.res != 200) {
 				tip(res.data.msg, "error")
 			}
-		} else {
-			Promise.reject(res).catch(err => err)
-		}
-		return res.data
+		} 
+		return Promise.resolve(res.data)
 	},
 	// 请求失败
 	error => {
 		const {
-			response
+			response,
 		} = error;
 		if (response) {
 			// 请求已发出，但是不在2xx的范围 
 			errorHandle(response.status, response.data.msg);
-			return Promise.reject(response).catch(err => err);
 		} else {
-			// 处理断网的情况
-			tip("网络未连接", "info")
+			tip(error.message, "error")
 		}
+		return Promise.reject(error)
 	});
 
 export default instance;
