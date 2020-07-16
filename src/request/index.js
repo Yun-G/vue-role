@@ -141,6 +141,9 @@ instance.interceptors.response.use(
 			// 请求已发出，但是不在2xx的范围 
 			errorHandle(response.status, response.data.msg);
 		} else {
+			if (axios.isCancel(error)) {
+				return Promise.reject(error).catch(e=>e)
+			}
 			tip(error.message, "error")
 		}
 		return Promise.reject(error)
